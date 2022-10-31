@@ -1,9 +1,14 @@
+calc_risk <- function(x) {
+  risk = x[2] / sum(x)
+}
+
+
 #' @importFrom dplyr .data
 calc_rr <- function(treatment, y, n) {
   dplyr::tibble(treatment, y, n) %>%
     dplyr::group_by(treatment) %>%
     dplyr::summarise(
-      risk = n[2] / sum(n)
+      risk = calc_risk(.data$n)
     ) %>%
     dplyr::summarise(
       rr = .data$risk[2] / .data$risk[1]
@@ -13,6 +18,7 @@ calc_rr <- function(treatment, y, n) {
 
 #' @importFrom dplyr .data
 dcalc_rr <- function(data, treatment, y, group = NULL) {
+  check_data(data)
   data %>%
     dplyr::select({{ treatment }}, {{ y }}, {{ group }}) %>%
     dplyr::group_by({{ group }}) %>%
@@ -27,6 +33,7 @@ dcalc_rr <- function(data, treatment, y, group = NULL) {
 
 #' @importFrom dplyr .data
 dcalc_or <- function(data, treatment, y, group = NULL) {
+  check_data(data)
   data %>%
     dplyr::select({{ treatment }}, {{ y }}, {{ group }}) %>%
     dplyr::group_by({{ group }}) %>%
@@ -41,8 +48,31 @@ dcalc_or <- function(data, treatment, y, group = NULL) {
 calc_or <- function(treatment, y, n) {
   dplyr::tibble(treatment, y, n) %>%
     dplyr::summarise(
-      or = (n[4] * n[1]) / (n[2] * n[3])
+      or = (.data$n[4] * .data$n[1]) / (.data$n[2] * .data$n[3])
     ) %>%
     dplyr::pull(.data$or)
 }
 
+#' @importFrom dplyr .data
+gen_pseudo_popn <- function(data, treatment, y, group = NULL) {
+  data %>%
+    dplyr::count({{ group }}, {{ treatment }}, {{ y }}) %>%
+    dplyr::group_by({{ group }}, {{ treatment }}) %>%
+    dplyr::mutate(treatment_size = sum(.data$n)) %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by({{ group }}) %>%
+    dplyr::mutate(
+      p = treatment_size / sum(n),
+      weight = 1 / p,
+      ns = weight * n
+    ) %>%
+    dplyr::ungroup()
+}
+
+
+
+# TODO: need to write more test for checking input data quality.
+
+check_data <- function(x) {
+  if(!is.data.frame(x)) stop("`data` must be a data.frame", call. = FALSE)
+}

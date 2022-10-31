@@ -1,9 +1,14 @@
 load(here::here("tests/testthat/data/wcgs.Rdata"))
 
 
+library(dplyr)
+
 wcgs <- dplyr::as_tibble(wcgs)
 
-wcgs %>% dcalc_rr(arcus, chd69, agec)
+wcgs %>%
+  filter(!is.na(arcus)) -> wcgs
+
+
 
 wcgs %>%
   filter(!is.na(arcus)) %>%
@@ -13,9 +18,12 @@ wcgs %>%
     RR = calc_rr(arcus, chd69, n)
   )
 
+wcgs %>%
+  filter(!is.na(arcus)) %>%
+  dcalc_rr(arcus, chd69, group = agec)
 
 wcgs %>%
-  dcalc_or(arcus, chd69, group = agec)
+  dcalc_rr(arcus, chd69, group = smoke)
 
 wcgs %>%
   dcalc_or(arcus, chd69)
@@ -55,15 +63,21 @@ wcgs %>%
   ) %>%
   group_by(arcus) %>%
   summarise(
-    causal_eff = ns[2] / sum(ns)
+    risk = calc_risk(ns)
   )
 
+
+
+wcgs %>%
+  gen_pseudo_popn(arcus, chd69, smoke) %>%
+  group_by(smoke) %>%
+  mutate(
+    strata_total = sum(n)
+  )
 
 # stratum specific
 
 wcgs %>%
-  filter(!is.na(arcus)) %>%
-  # group_by(smoke) %>%
   count(smoke, arcus, chd69) %>%
   group_by(smoke, arcus) %>%
   mutate(n_trt = sum(n)) %>%
@@ -78,7 +92,5 @@ wcgs %>%
   ungroup() %>%
   group_by(smoke, arcus) %>%
   mutate(
-    risk = ns[2] / sum(ns)
-  ) %>%
-  filter(chd69 == "Yes")
-
+    risk = calc_risk(ns)
+  )
