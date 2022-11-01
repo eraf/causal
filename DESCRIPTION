@@ -17,3 +17,5 @@ Imports:
     magrittr
 URL: https://github.com/shafayetShafee/tidycausal
 BugReports: https://github.com/shafayetShafee/tidycausal/issues
+Depends: 
+    R (>= 2.10)
