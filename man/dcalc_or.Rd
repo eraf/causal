@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_or.R
 \name{dcalc_or}
 \alias{dcalc_or}
-\title{Calculates Risk Ratio from the Data.}
+\title{Calculates Odds Ratio from a given data frame}
 \usage{
 dcalc_or(
   data,
@@ -27,9 +27,9 @@ dcalc_or(
 \item{group}{group by variable.}
 }
 \value{
-A tibble containing the risk ratio
+A tibble containing the odds ratio
 }
 \description{
-\code{dcalc_rr} calculates the risk ratio directly from data and supports
+\code{dcalc_or} calculates the odds ratio directly from a data frame and supports
 tidy-selection.
 }

@@ -40,8 +40,8 @@ check_level <- function(x, param_name = NULL) {
   level <- length(unique(x))
   if(level != 2) {
     level_name <- paste(unique(x), " ", collapse = "")
-    msg = paste0(param_name, " must be binary,
-                 instead it has ", level, " levels ",
+    msg = paste0(param_name, " must be binary, instead it has ",
+                 level, " levels ",
                  level_name, collapse = "")
     stop(msg, call. = FALSE)
   }

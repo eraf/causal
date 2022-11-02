@@ -135,21 +135,46 @@ test_that("Expecting errors in dcalc_rr", {
   )
 })
 
+<<<<<<< HEAD
 test_that("Expecting errors in dcalc_or", {
+=======
+test_that("Expecting errors in rr functions for treatment not being binary", {
+>>>>>>> 540f935b5a910332900e3654ead5330f43ac02b9
   expect_error(
     wcgs %>%
       count(agec, chd69) %>% #agec has more than two categories
       summarise (
-        or = calc_or(agec, chd69, n, "No")
+        or = calc_or(agec, chd69, n, "No", "No")
       )
+  )
+
+  expect_error(
+    wcgs %>%
+      dcalc_or(agec, chd69, "No", "No")
   )
 })
 
+
 test_that("Expecting errors in dcalc_or", {
+
+test_that("Expecting errors in or functions for outcome not being binary", {
   expect_error(
     wcgs %>%
-      dcalc_or(agec, chd69, n, "No")
+      count(agec, smoke) %>%
+      summarise (
+        rr = calc_or(smoke, agec, n, "No", "No")
+        # This doesn't make sense much IKR,
+        # but we need to test anyway
       )
+  )
+
+  expect_error(
+    wcgs %>%
+      dcalc_or(agec, smoke, "No", "No")
+    # Yeah again, This doesn't make sense much IKR,
+    # but we need to test anyway
+  )
+
 })
 
 test_that("Expecting errors in calc_or", {

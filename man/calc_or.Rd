@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_or.R
 \name{calc_or}
 \alias{calc_or}
-\title{Calculates Risk Ratio.}
+\title{Calculates Odds Ratio}
 \usage{
 calc_or(treatment, y, n, treatment_ref_lvl = NULL, y_ref_lvl = NULL)
 }
@@ -18,11 +18,11 @@ calc_or(treatment, y, n, treatment_ref_lvl = NULL, y_ref_lvl = NULL)
 \item{y_ref_lvl}{Reference level of y variable.}
 }
 \value{
-A numeric value of risk ratio
+A numeric value of odds ratio
 }
 \description{
-\code{calc_rr} calculates risk-ratio for Binary Outcome (y) and Binary
+\code{calc_or} calculates odds ratio for Binary Outcome (y) and Binary
 treatment variable, for given a vector of treatment levels, a vector of
 possible outcome y and the count for each combination of treatment and y.
-\code{calc_rr} and supports tidy-selection.
+and \code{calc_or} supports tidy-selection.
 }
