@@ -135,3 +135,14 @@ test_that("Expecting errors in dcalc_rr", {
   )
 })
 
+test_that("Expecting errors in dcalc_rr", {
+  expect_error(
+    wcgs %>%
+      count(agec, chd69) %>%
+      summarise (
+        or = calc_or(smoke, chd69, n, "No")
+      ),
+    "Could not determine the y reference level"
+  )
+})
+names(wcgs)
