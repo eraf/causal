@@ -1,19 +1,18 @@
-#' Calculates Risk Ratio.
+#' Calculates Odds Ratio.
 #'
-#' \code{calc_rr} calculates risk-ratio for Binary Outcome (y) and Binary
+#' \code{calc_or} calculates odds ratio for Binary Outcome (y) and Binary
 #' treatment variable, for given a vector of treatment levels, a vector of
 #' possible outcome y and the count for each combination of treatment and y.
-#' \code{calc_rr} and supports tidy-selection.
+#' \code{calc_or} and supports tidy-selection.
 #'
 #'
 #' @param treatment A vector with two unique level or value.
-#'
 #' @param y A vector with two unique level or value.
 #' @param n count for each combination of treatment and y.
 #' @param treatment_ref_lvl Reference Level of treatment variable.
 #' @param y_ref_lvl Reference level of y variable.
 #'
-#' @return A numeric value of risk ratio
+#' @return A numeric value of odds ratio
 #' @export
 #' @importFrom dplyr .data
 calc_or <- function(treatment, y, n, treatment_ref_lvl = NULL,
@@ -37,9 +36,9 @@ calc_or <- function(treatment, y, n, treatment_ref_lvl = NULL,
 
 
 
-#' Calculates Risk Ratio from the Data.
+#' Calculates Odds Ratio from the Data.
 #'
-#' \code{dcalc_rr} calculates the risk ratio directly from data and supports
+#' \code{dcalc_or} calculates the odds ratio directly from a data frame and supports
 #' tidy-selection.
 #'
 #'
@@ -50,7 +49,7 @@ calc_or <- function(treatment, y, n, treatment_ref_lvl = NULL,
 #' @param y_ref_lvl Reference level of y variable.
 #' @param group group by variable.
 #'
-#' @return A tibble containing the risk ratio
+#' @return A tibble containing the odds ratio
 #' @export
 #' @importFrom dplyr .data
 dcalc_or <- function(data, treatment, y, treatment_ref_lvl = NULL,

@@ -2,7 +2,7 @@ library(dplyr)
 
 wcgs <- wcgs %>% filter(!is.na(arcus))
 
-test_that("Checking for simple single rr calculation", {
+test_that("Checking for simple single or calculation", {
   # manual
   dt11 <- wcgs %>%
     count(smoke, chd69) %>%
@@ -26,7 +26,7 @@ test_that("Checking for simple single rr calculation", {
 })
 
 
-test_that("Checking for grouped rr calculation", {
+test_that("Checking for grouped or calculation", {
   # manual
   dt21 <- wcgs %>%
     group_by(arcus) %>%
@@ -140,9 +140,14 @@ test_that("Expecting errors in dcalc_rr", {
     wcgs %>%
       count(agec, chd69) %>%
       summarise (
-        or = calc_or(smoke, chd69, n, "No")
-      ),
-    "Could not determine the y reference level"
+        or = calc_or(agec, chd69, n, "No")
+      )
   )
 })
-names(wcgs)
+
+test_that("Expecting errors in dcalc_rr", {
+  expect_error(
+    wcgs %>%
+      dcalc_or(agec, chd69, n, "No")
+      )
+})
