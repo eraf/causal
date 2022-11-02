@@ -1,9 +1,9 @@
-#' Calculates Odds Ratio.
+#' Calculates Odds Ratio
 #'
 #' \code{calc_or} calculates odds ratio for Binary Outcome (y) and Binary
 #' treatment variable, for given a vector of treatment levels, a vector of
 #' possible outcome y and the count for each combination of treatment and y.
-#' \code{calc_or} and supports tidy-selection.
+#' and \code{calc_or} supports tidy-selection.
 #'
 #'
 #' @param treatment A vector with two unique level or value.
@@ -36,13 +36,14 @@ calc_or <- function(treatment, y, n, treatment_ref_lvl = NULL,
 
 
 
-#' Calculates Odds Ratio from the Data.
+#' Calculates Odds Ratio from a given data frame
 #'
 #' \code{dcalc_or} calculates the odds ratio directly from a data frame and supports
 #' tidy-selection.
 #'
 #'
 #' @param data A data frame containing treatment and outcome variable (y)
+#'
 #' @param treatment A vector with two unique level or value.
 #' @param y A vector with two unique level or value.
 #' @param treatment_ref_lvl Reference Level of treatment variable.

@@ -18,6 +18,8 @@
 #' @importFrom dplyr .data
 calc_rr <- function(treatment, y, n, treatment_ref_lvl = NULL,
                     y_ref_lvl = NULL) {
+  check_level(treatment, "treatment")
+  check_level(y, "outcome (y)")
   check_param_null(treatment_ref_lvl, "treatment reference level")
   check_param_null(y_ref_lvl, "y reference level")
 
@@ -38,25 +40,30 @@ calc_rr <- function(treatment, y, n, treatment_ref_lvl = NULL,
 
 
 
-#' Calculates Risk Ratio from the Data.
+
+#' Calculates Risk Ratio from a given data frame
 #'
 #' \code{dcalc_rr} calculates the risk ratio directly from data and supports
 #' tidy-selection.
 #'
 #'
-#' @param data A data frame containing treatment and outcome variable (y)
+#' @param data A data frame containing treatment and outcome variable (y).
 #' @param treatment A vector with two unique level or value.
 #' @param y A vector with two unique level or value.
 #' @param treatment_ref_lvl Reference Level of treatment variable.
 #' @param y_ref_lvl Reference level of y variable.
 #' @param group group by variable.
 #'
-#' @return A tibble containing the risk ratio
+#' @return A tibble containing the risk ratio.
 #' @export
 #' @importFrom dplyr .data
 dcalc_rr <- function(data, treatment, y, treatment_ref_lvl = NULL,
                      y_ref_lvl = NULL, group = NULL) {
   check_data(data)
+  trt <- dplyr::pull(data, {{ treatment }})
+  outcome <- dplyr::pull(data, {{ y }})
+  check_level(trt, "treatment")
+  check_level(outcome, "outcome (y)")
   check_param_null(treatment_ref_lvl, "treatment reference level")
   check_param_null(y_ref_lvl, "y reference level")
 
@@ -72,3 +79,4 @@ dcalc_rr <- function(data, treatment, y, treatment_ref_lvl = NULL,
                    y_ref_lvl = y_ref_lvl)
     )
 }
+

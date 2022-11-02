@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_rr.R
 \name{dcalc_rr}
 \alias{dcalc_rr}
-\title{Calculates Risk Ratio from the Data.}
+\title{Calculates Risk Ratio from a given data frame}
 \usage{
 dcalc_rr(
   data,
@@ -14,7 +14,7 @@ dcalc_rr(
 )
 }
 \arguments{
-\item{data}{A data frame containing treatment and outcome variable (y)}
+\item{data}{A data frame containing treatment and outcome variable (y).}
 
 \item{treatment}{A vector with two unique level or value.}
 
@@ -27,7 +27,7 @@ dcalc_rr(
 \item{group}{group by variable.}
 }
 \value{
-A tibble containing the risk ratio
+A tibble containing the risk ratio.
 }
 \description{
 \code{dcalc_rr} calculates the risk ratio directly from data and supports

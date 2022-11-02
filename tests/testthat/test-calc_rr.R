@@ -142,3 +142,39 @@ test_that("Expecting errors in dcalc_rr", {
   )
 })
 
+
+test_that("Expecting errors in rr functions for treatment not being binary", {
+  expect_error(
+    wcgs %>%
+      count(agec, chd69) %>%
+      summarise (
+        rr = calc_rr(agec, chd69, n, "No", "No")
+      )
+  )
+
+  expect_error(
+    wcgs %>%
+      dcalc_rr(agec, chd69, "No", "No")
+  )
+
+})
+
+test_that("Expecting errors in rr functions for outcome not being binary", {
+  expect_error(
+    wcgs %>%
+      count(agec, smoke) %>%
+      summarise (
+        rr = calc_rr(smoke, agec, n, "No", "No")
+        # This doesn't make sense much IKR,
+        # but we need to test anyway
+      )
+  )
+
+  expect_error(
+    wcgs %>%
+      dcalc_rr(agec, smoke, "No", "No")
+    # Yeah again, This doesn't make sense much IKR,
+    # but we need to test anyway
+  )
+
+})
