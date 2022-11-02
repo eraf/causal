@@ -5,7 +5,8 @@
 <!-- badges: end -->
 
 
-The goal of tidycausal is to ...
+The goal of tidycausal is to provide some functions for calculating causal effects
+from given data (in tidy way!!)
 
 
 ## Installation
