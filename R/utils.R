@@ -46,3 +46,14 @@ check_level <- function(x, param_name = NULL) {
     stop(msg, call. = FALSE)
   }
 }
+
+#' Give an error if there are any NA values
+#'
+#' @param x a vector.
+#'
+#' @noRd
+check_na <- function(x) {
+  if(sum(is.na(x)) > 0) {
+    stop(paste0("Value missing"))
+  }
+}

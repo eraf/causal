@@ -135,19 +135,29 @@ test_that("Expecting errors in dcalc_rr", {
   )
 })
 
-test_that("Expecting errors in dcalc_rr", {
+test_that("Expecting errors in dcalc_or", {
   expect_error(
     wcgs %>%
-      count(agec, chd69) %>%
+      count(agec, chd69) %>% #agec has more than two categories
       summarise (
         or = calc_or(agec, chd69, n, "No")
       )
   )
 })
 
-test_that("Expecting errors in dcalc_rr", {
+test_that("Expecting errors in dcalc_or", {
   expect_error(
     wcgs %>%
       dcalc_or(agec, chd69, n, "No")
       )
+})
+
+test_that("Expecting errors in calc_or", {
+  expect_error(
+    wcgs %>%
+      count(chol, chd69) %>%
+      summarise (
+        or = calc_or(chol, chd69, n, "No") #chol has missing values
+      )
+  )
 })

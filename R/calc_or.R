@@ -17,6 +17,8 @@
 #' @importFrom dplyr .data
 calc_or <- function(treatment, y, n, treatment_ref_lvl = NULL,
                     y_ref_lvl = NULL) {
+  check_na(treatment)
+  check_na(y)
   check_level(treatment, "treatment")
   check_level(y, "outcome(y)")
   check_param_null(treatment_ref_lvl, "treatment reference level")
@@ -56,6 +58,8 @@ dcalc_or <- function(data, treatment, y, treatment_ref_lvl = NULL,
                      y_ref_lvl = NULL, group = NULL) {
 
   check_data(data)
+  check_na(treatment)
+  check_na(y)
   trt <- dplyr::pull(data, {{ treatment }})
   outcome <- dplyr::pull(data, {{ y }})
   check_level(trt, "treatment")

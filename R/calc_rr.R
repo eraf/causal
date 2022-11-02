@@ -18,6 +18,8 @@
 #' @importFrom dplyr .data
 calc_rr <- function(treatment, y, n, treatment_ref_lvl = NULL,
                     y_ref_lvl = NULL) {
+  check_na(treatment)
+  check_na(y)
   check_param_null(treatment_ref_lvl, "treatment reference level")
   check_param_null(y_ref_lvl, "y reference level")
 
@@ -57,6 +59,8 @@ calc_rr <- function(treatment, y, n, treatment_ref_lvl = NULL,
 dcalc_rr <- function(data, treatment, y, treatment_ref_lvl = NULL,
                      y_ref_lvl = NULL, group = NULL) {
   check_data(data)
+  check_na(treatment)
+  check_na(y)
   check_param_null(treatment_ref_lvl, "treatment reference level")
   check_param_null(y_ref_lvl, "y reference level")
 

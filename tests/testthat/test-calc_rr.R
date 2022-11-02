@@ -142,3 +142,12 @@ test_that("Expecting errors in dcalc_rr", {
   )
 })
 
+test_that("Expecting errors in calc_rr", {
+  expect_error(
+    wcgs %>%
+      count(chol, chd69) %>%
+      summarise (
+        rr = calc_rr(chol, chd69, n, "No")
+      )
+  )
+})
