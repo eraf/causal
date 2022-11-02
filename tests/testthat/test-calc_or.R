@@ -2,7 +2,7 @@ library(dplyr)
 
 wcgs <- wcgs %>% filter(!is.na(arcus))
 
-test_that("Checking for simple single rr calculation", {
+test_that("Checking for simple single or calculation", {
   # manual
   dt11 <- wcgs %>%
     count(smoke, chd69) %>%
@@ -26,7 +26,7 @@ test_that("Checking for simple single rr calculation", {
 })
 
 
-test_that("Checking for grouped rr calculation", {
+test_that("Checking for grouped or calculation", {
   # manual
   dt21 <- wcgs %>%
     group_by(arcus) %>%
