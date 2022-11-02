@@ -18,8 +18,11 @@
 #' @importFrom dplyr .data
 calc_or <- function(treatment, y, n, treatment_ref_lvl = NULL,
                     y_ref_lvl = NULL) {
+  check_level(treatment, "treatment")
+  check_level(y, "outcome(y)")
   check_param_null(treatment_ref_lvl, "treatment reference level")
   check_param_null(y_ref_lvl, "y reference level")
+
 
   dplyr::tibble(treatment, y, n) %>%
     dplyr::mutate(
@@ -54,6 +57,10 @@ dcalc_or <- function(data, treatment, y, treatment_ref_lvl = NULL,
                      y_ref_lvl = NULL, group = NULL) {
 
   check_data(data)
+  trt <- dplyr::pull(data, {{ treatment }})
+  outcome <- dplyr::pull(data, {{ y }})
+  check_level(trt, "treatment")
+  check_level(outcome, "outcome(y)")
   check_param_null(treatment_ref_lvl, "treatment reference level")
   check_param_null(y_ref_lvl, "y reference level")
 
