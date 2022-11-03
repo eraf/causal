@@ -18,7 +18,6 @@ test_that("Checking for simple single or calculation", {
 
   dt13 <- wcgs %>%
     dcalc_or(smoke, chd69 , "No", "No")
-  #doesn't work: unused arguments "No", "No"
 
   expect_identical(dt11, dt12)
   expect_identical(dt11, dt13)
@@ -135,10 +134,11 @@ test_that("Expecting errors in dcalc_rr", {
   )
 })
 
+
 test_that("Expecting errors in rr functions for treatment not being binary", {
   expect_error(
     wcgs %>%
-      count(agec, chd69) %>%
+      count(agec, chd69) %>% #agec has more than two categories
       summarise (
         or = calc_or(agec, chd69, n, "No", "No")
       )
@@ -169,4 +169,14 @@ test_that("Expecting errors in or functions for outcome not being binary", {
     # but we need to test anyway
   )
 
+})
+
+test_that("Expecting errors in calc_or", {
+  expect_error(
+    wcgs %>%
+      count(chol, chd69) %>%
+      summarise (
+        or = calc_or(chol, chd69, n, "No") #chol has missing values
+      )
+  )
 })
