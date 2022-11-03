@@ -14,7 +14,13 @@ calc_risk <- function(x) {
 #'
 #' @noRd
 check_data <- function(x) {
-  if(!is.data.frame(x)) stop("`data` must be a data.frame", call. = FALSE)
+  if(is.null(x)) {
+    stop("argument `data` is missing, with no default", call. = FALSE)
+  }
+
+  if(!is.data.frame(x)) {
+    stop("`data` must be a data.frame", call. = FALSE)
+  }
 }
 
 #' Check function for checking whether a data frame was provided.
@@ -36,7 +42,7 @@ check_param_null <- function(x, param_name) {
 #' @param param_name a character value for constructing the error message.
 #'
 #' @noRd
-check_level <- function(x, param_name = NULL) {
+check_level <- function(x, param_name) {
   level <- length(unique(x))
   if(level != 2) {
     level_name <- paste(unique(x), " ", collapse = "")
@@ -52,8 +58,8 @@ check_level <- function(x, param_name = NULL) {
 #' @param x a vector.
 #'
 #' @noRd
-check_na <- function(x) {
+check_na <- function(x, param_name) {
   if(sum(is.na(x)) > 0) {
-    stop(paste0("There are missing values"))
+    stop(paste0("There are missing values in ", param_name), call. = FALSE)
   }
 }

@@ -177,13 +177,34 @@ test_that("Expecting errors in rr functions for outcome not being binary", {
   )
 })
 
-test_that("Expecting errors in calc_rr", {
+test_that("Expecting errors in calc_rr for NA values in treatment `chol`", {
   expect_error(
     wcgs %>%
       count(chol, chd69) %>%
       summarise (
-        rr = calc_rr(chol, chd69, n, "No")
-      )
-  )
- }
+        rr = calc_rr(chol, chd69, n, "No", "No")
+      ),
+    "There are missing values in treatment"
+    )
+
+  expect_error(
+    wcgs %>%
+      dcalc_rr(chol, chd69, "No", "No"),
+    "There are missing values in treatment"
+    )
+  }
+)
+
+test_that("Expecting errors in calc_rr for NA values in outcome `chol`", {
+  expect_error(
+    wcgs %>%
+      count(chol, smoke) %>%
+      summarise (rr = calc_rr(smoke, chol, n, "No", "No"))
+    )
+
+  expect_error(
+    wcgs %>%
+      dcalc_rr(smoke, chol, "No", "No")
+    )
+  }
 )
