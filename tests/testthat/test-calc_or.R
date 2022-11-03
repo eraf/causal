@@ -18,7 +18,6 @@ test_that("Checking for simple single or calculation", {
 
   dt13 <- wcgs %>%
     dcalc_or(smoke, chd69 , "No", "No")
-  #doesn't work: unused arguments "No", "No"
 
   expect_identical(dt11, dt12)
   expect_identical(dt11, dt13)
@@ -135,11 +134,8 @@ test_that("Expecting errors in dcalc_rr", {
   )
 })
 
-<<<<<<< HEAD
-test_that("Expecting errors in dcalc_or", {
-=======
+
 test_that("Expecting errors in rr functions for treatment not being binary", {
->>>>>>> 540f935b5a910332900e3654ead5330f43ac02b9
   expect_error(
     wcgs %>%
       count(agec, chd69) %>% #agec has more than two categories
@@ -154,8 +150,6 @@ test_that("Expecting errors in rr functions for treatment not being binary", {
   )
 })
 
-
-test_that("Expecting errors in dcalc_or", {
 
 test_that("Expecting errors in or functions for outcome not being binary", {
   expect_error(

@@ -142,15 +142,6 @@ test_that("Expecting errors in dcalc_rr", {
   )
 })
 
-test_that("Expecting errors in calc_rr", {
-  expect_error(
-    wcgs %>%
-      count(chol, chd69) %>%
-      summarise (
-        rr = calc_rr(chol, chd69, n, "No")
-      )
-  )
-
 test_that("Expecting errors in rr functions for treatment not being binary", {
   expect_error(
     wcgs %>%
@@ -184,5 +175,15 @@ test_that("Expecting errors in rr functions for outcome not being binary", {
     # Yeah again, This doesn't make sense much IKR,
     # but we need to test anyway
   )
-
 })
+
+test_that("Expecting errors in calc_rr", {
+  expect_error(
+    wcgs %>%
+      count(chol, chd69) %>%
+      summarise (
+        rr = calc_rr(chol, chd69, n, "No")
+      )
+  )
+ }
+)

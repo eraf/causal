@@ -54,6 +54,6 @@ check_level <- function(x, param_name = NULL) {
 #' @noRd
 check_na <- function(x) {
   if(sum(is.na(x)) > 0) {
-    stop(paste0("Value missing"))
+    stop(paste0("There are missing values"))
   }
 }

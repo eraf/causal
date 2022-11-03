@@ -59,10 +59,10 @@ dcalc_or <- function(data, treatment, y, treatment_ref_lvl = NULL,
                      y_ref_lvl = NULL, group = NULL) {
 
   check_data(data)
-  check_na(treatment)
-  check_na(y)
   trt <- dplyr::pull(data, {{ treatment }})
   outcome <- dplyr::pull(data, {{ y }})
+  check_na(trt)
+  check_na(outcome)
   check_level(trt, "treatment")
   check_level(outcome, "outcome(y)")
   check_param_null(treatment_ref_lvl, "treatment reference level")
