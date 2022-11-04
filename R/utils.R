@@ -63,3 +63,20 @@ check_na <- function(x, param_name) {
     stop(paste0("There are missing values in ", param_name), call. = FALSE)
   }
 }
+
+#' Give an error if column doesn't exist in the dataset
+#'
+#' @param colname column name for which we need to check
+#' @param data a dataframe
+#' @param dataname name of the dataframe
+#'
+#' @noRd
+check_col_exist <- function(colname, data) {
+  if (!(colname %in% names(data))) {
+    stop(
+      paste0("Column `", colname, "` doesn't exist in the data"),
+      call. = FALSE
+    )
+  }
+}
+

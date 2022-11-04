@@ -212,8 +212,7 @@ test_that("Expecting errors in calc_rr for NA values in outcome `chol`", {
   }
 )
 
-test_that("Expecting erros in dcalc_rr for NA values in group variable `arcus`", {
-
+test_that("Expecting errors in dcalc_rr for NA values in group variable `arcus`", {
   expect_error(
     wcgs %>%
       dcalc_rr(smoke, chd69, "No", "No", arcus),
@@ -221,3 +220,26 @@ test_that("Expecting erros in dcalc_rr for NA values in group variable `arcus`",
     )
   }
 )
+
+test_that("Expecting errors in dcalc_rr if wrong column is given", {
+  # wrong treatment column
+  expect_error(
+    wcgs %>%
+      dcalc_rr(smoker, chd69, "No", "No"),
+    "Column `\\w+` doesn't exist in the data"
+  )
+
+  # wrong y column
+  expect_error(
+    wcgs %>%
+      dcalc_rr(smoke, chd, "No", "No"),
+    "Column `\\w+` doesn't exist in the data"
+  )
+
+  # wrong group column
+  expect_error(
+    wcgs %>%
+      dcalc_rr(smoke, chd69, "No", "No", age_cat),
+    "Column `\\w+` doesn't exist in the data"
+  )
+})
