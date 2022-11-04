@@ -64,11 +64,11 @@ check_na <- function(x, param_name) {
   }
 }
 
-#' Give an error if column doesn't exist in the dataset
+#' Give an error if column doesn't exist in the data set
 #'
 #' @param colname column name for which we need to check
-#' @param data a dataframe
-#' @param dataname name of the dataframe
+#' @param data a data frame
+#' @param dataname name of the data frame
 #'
 #' @noRd
 check_col_exist <- function(colname, data) {
