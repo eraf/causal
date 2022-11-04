@@ -45,9 +45,9 @@ check_param_null <- function(x, param_name) {
 check_level <- function(x, param_name) {
   level <- length(unique(x))
   if(level != 2) {
-    level_name <- paste(unique(x), " ", collapse = "")
-    msg = paste0(param_name, " must be binary, instead it has ",
-                 level, " levels ",
+    level_name <- paste(unique(x), " ", collapse = "\n")
+    msg = paste0("\n", param_name, " must be binary,\ninstead it has ",
+                 level, " levels \n",
                  level_name, collapse = "")
     stop(msg, call. = FALSE)
   }

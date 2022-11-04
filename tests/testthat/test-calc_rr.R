@@ -150,12 +150,14 @@ test_that("Expecting errors in rr functions for treatment not being binary", {
       count(agec, chd69) %>%
       summarise (
         rr = calc_rr(agec, chd69, n, "No", "No")
-      )
+      ),
+    "treatment variable *."
   )
 
   expect_error(
     wcgs %>%
-      dcalc_rr(agec, chd69, "No", "No")
+      dcalc_rr(agec, chd69, "No", "No"),
+    "treatment variable *."
   )
 
 })
@@ -168,15 +170,18 @@ test_that("Expecting errors in rr functions for outcome not being binary", {
         rr = calc_rr(smoke, agec, n, "No", "No")
         # This doesn't make sense much IKR,
         # but we need to test anyway
-      )
+      ),
+    "outcome .*"
   )
 
   expect_error(
     wcgs %>%
-      dcalc_rr(agec, smoke, "No", "No")
+      dcalc_rr(smoke, agec, "No", "No"),
+    "outcome .*"
     # Yeah again, This doesn't make sense much IKR,
     # but we need to test anyway
   )
+
 })
 
 test_that("Expecting errors in calc_rr for NA values in treatment `chol`", {
@@ -186,13 +191,13 @@ test_that("Expecting errors in calc_rr for NA values in treatment `chol`", {
       summarise (
         rr = calc_rr(chol, chd69, n, "No", "No")
       ),
-    "There are missing values in treatment"
+    "There are missing values .*"
     )
 
   expect_error(
     wcgs %>%
       dcalc_rr(chol, chd69, "No", "No"),
-    "There are missing values in treatment"
+    "There are missing values .*"
     )
   }
 )
@@ -202,12 +207,14 @@ test_that("Expecting errors in calc_rr for NA values in outcome `chol`", {
   expect_error(
     wcgs %>%
       count(chol, smoke) %>%
-      summarise (rr = calc_rr(smoke, chol, n, "No", "No"))
+      summarise (rr = calc_rr(smoke, chol, n, "No", "No")),
+    "There are missing values .*"
     )
 
   expect_error(
     wcgs %>%
-      dcalc_rr(smoke, chol, "No", "No")
+      dcalc_rr(smoke, chol, "No", "No"),
+    "There are missing values .*"
     )
   }
 )
@@ -216,7 +223,7 @@ test_that("Expecting errors in dcalc_rr for NA values in group variable `arcus`"
   expect_error(
     wcgs %>%
       dcalc_rr(smoke, chd69, "No", "No", arcus),
-    "There are missing values in group variable"
+    "There are missing values .*"
     )
   }
 )
