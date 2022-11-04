@@ -48,7 +48,7 @@ test_that("Checking for calculation if ref level changed (single value)", {
       smoke = if_else(smoke == "No", "Yes", "No"),
       chd69 = if_else(chd69 == "No", "Yes", "No")
     ) %>%
-    count(smoke, chd69)%>% #corrected
+    count(smoke, chd69) %>%
     summarise(
       or = (n[4] * n[1]) / (n[2] * n[3])
     )
@@ -86,7 +86,7 @@ test_that("Checking for calculation if ref level changed (grouped value)", {
 })
 
 
-test_that("Expecting errors in calc_rr", {
+test_that("Expecting errors in calc_or", {
   expect_error(
     wcgs %>%
       count(smoke, chd69) %>%
@@ -116,7 +116,7 @@ test_that("Expecting errors in calc_rr", {
 })
 
 
-test_that("Expecting errors in dcalc_rr", {
+test_that("Expecting errors in dcalc_or", {
   expect_error(
     wcgs %>%
       dcalc_or(smoke, chd69),
@@ -137,7 +137,7 @@ test_that("Expecting errors in dcalc_rr", {
 })
 
 
-test_that("Expecting errors in rr functions for treatment not being binary", {
+test_that("Expecting errors in or functions for treatment not being binary", {
   expect_error(
     wcgs %>%
       count(agec, chd69) %>%
@@ -158,7 +158,7 @@ test_that("Expecting errors in or functions for outcome not being binary", {
     wcgs %>%
       count(agec, smoke) %>%
       summarise (
-        rr = calc_or(smoke, agec, n, "No", "No")
+        or = calc_or(smoke, agec, n, "No", "No")
         # This doesn't make sense much IKR,
         # but we need to test anyway
       )
@@ -173,12 +173,12 @@ test_that("Expecting errors in or functions for outcome not being binary", {
   }
 )
 
-test_that("Expecting errors in calc_rr for NA values in treatment `chol`", {
+test_that("Expecting errors in or functions for NA values in treatment `chol`", {
   expect_error(
     wcgs %>%
       count(arcus, chd69) %>%
       summarise (
-        rr = calc_or(arcus, chd69, n, "No", "No")
+        or = calc_or(arcus, chd69, n, "No", "No")
       ),
     "There are missing values in treatment"
     )
@@ -191,16 +191,25 @@ test_that("Expecting errors in calc_rr for NA values in treatment `chol`", {
   }
 )
 
-test_that("Expecting errors in calc_rr for NA values in outcome `chol`", {
+test_that("Expecting errors in or functions for NA values in outcome `chol`", {
   expect_error(
     wcgs %>%
       count(chol, smoke) %>%
-      summarise (rr = calc_rr(smoke, chol, n, "No", "No"))
+      summarise (or = calc_or(smoke, chol, n, "No", "No"))
     )
 
   expect_error(
     wcgs %>%
-      dcalc_rr(smoke, chol, "No", "No")
+      dcalc_or(smoke, chol, "No", "No")
+    )
+  }
+)
+
+test_that("Expecting errors in dcalc_or for NA values in group variable `arcus`", {
+  expect_error(
+    wcgs %>%
+      dcalc_or(smoke, chd69, "No", "No", arcus),
+    "There are missing values in group variable"
     )
   }
 )

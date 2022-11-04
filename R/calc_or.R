@@ -63,6 +63,10 @@ dcalc_or <- function(data, treatment, y, treatment_ref_lvl = NULL,
   outcome <- dplyr::pull(data, {{ y }})
   check_na(trt, "treatment")
   check_na(outcome, "outcome (y)")
+  if (!is.null(substitute(group))) {
+    grp <- dplyr::pull(data, {{ group }})
+    check_na(grp, "group variable")
+  }
   check_level(trt, "treatment")
   check_level(outcome, "outcome(y)")
   check_param_null(treatment_ref_lvl, "treatment reference level")

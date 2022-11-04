@@ -1,7 +1,5 @@
 library(dplyr)
 
-wcgs <- wcgs %>% filter(!is.na(arcus))
-
 test_that("Checking for simple single rr calculation", {
   # manual
   dt11 <- wcgs %>%
@@ -32,6 +30,7 @@ test_that("Checking for simple single rr calculation", {
 test_that("Checking for grouped rr calculation", {
   # manual
   dt21 <- wcgs %>%
+    filter(!is.na(arcus)) %>%
     group_by(arcus) %>%
     count(chd69, smoke) %>%
     summarise(
@@ -39,6 +38,7 @@ test_that("Checking for grouped rr calculation", {
     )
 
   dt22 <- wcgs %>%
+    filter(!is.na(arcus)) %>%
     dcalc_rr(smoke, chd69, "No", "No", group = arcus)
 
   expect_identical(dt21, dt22)
@@ -79,6 +79,7 @@ test_that("Checking for calculation if ref level changed (single value)", {
 test_that("Checking for calculation if ref level changed (grouped value)", {
   # manual
   dt41 <- wcgs %>%
+    filter(!is.na(arcus)) %>%
     group_by(arcus) %>%
     count(chd69, smoke) %>%
     summarise(
@@ -86,6 +87,7 @@ test_that("Checking for calculation if ref level changed (grouped value)", {
     )
 
   dt42 <- wcgs %>%
+    filter(!is.na(arcus)) %>%
     dcalc_rr(smoke, chd69, "Yes", "Yes", group = arcus)
 
   expect_identical(dt41, dt42)
@@ -195,6 +197,7 @@ test_that("Expecting errors in calc_rr for NA values in treatment `chol`", {
   }
 )
 
+
 test_that("Expecting errors in calc_rr for NA values in outcome `chol`", {
   expect_error(
     wcgs %>%
@@ -205,6 +208,16 @@ test_that("Expecting errors in calc_rr for NA values in outcome `chol`", {
   expect_error(
     wcgs %>%
       dcalc_rr(smoke, chol, "No", "No")
+    )
+  }
+)
+
+test_that("Expecting erros in dcalc_rr for NA values in group variable `arcus`", {
+
+  expect_error(
+    wcgs %>%
+      dcalc_rr(smoke, chd69, "No", "No", arcus),
+    "There are missing values in group variable"
     )
   }
 )
