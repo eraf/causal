@@ -53,12 +53,12 @@ calc_rr <- function(treatment, y, n, treatment_ref_lvl = NULL,
 #' tidy-selection.
 #'
 #'
-#' @param data A data frame containing treatment and outcome variable (y).
-#' @param treatment A vector with two unique level or value.
-#' @param y A vector with two unique level or value.
-#' @param treatment_ref_lvl Reference Level of treatment variable.
-#' @param y_ref_lvl Reference level of y variable.
-#' @param group group by variable.
+#' @param data A data frame containing treatment and outcome (y) column.
+#' @param treatment treatment column with two unique level or value.
+#' @param y outcome column with two unique level or value.
+#' @param treatment_ref_lvl Reference Level of treatment column.
+#' @param y_ref_lvl Reference level of outcome (y) column.
+#' @param group group column.
 #'
 #' @return A tibble containing the risk ratio.
 #' @export
