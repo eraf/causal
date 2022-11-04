@@ -214,3 +214,25 @@ test_that("Expecting errors in dcalc_or for NA values in group variable `arcus`"
   }
 )
 
+test_that("Expecting errors in dcalc_or if wrong column is given", {
+  # wrong treatment column
+  expect_error(
+    wcgs %>%
+      dcalc_or(smoker, chd69, "No", "No"),
+    "Column `\\w+` doesn't exist in the data"
+  )
+
+  # wrong y column
+  expect_error(
+    wcgs %>%
+      dcalc_or(smoke, chd, "No", "No"),
+    "Column `\\w+` doesn't exist in the data"
+  )
+
+  # wrong group column
+  expect_error(
+    wcgs %>%
+      dcalc_or(smoke, chd69, "No", "No", age_cat),
+    "Column `\\w+` doesn't exist in the data"
+  )
+})

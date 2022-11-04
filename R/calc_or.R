@@ -59,11 +59,17 @@ dcalc_or <- function(data, treatment, y, treatment_ref_lvl = NULL,
                      y_ref_lvl = NULL, group = NULL) {
 
   check_data(data)
+  trt_colname <- deparse(substitute(treatment))
+  y_colname <- deparse(substitute(y))
+  check_col_exist(trt_colname, data)
+  check_col_exist(y_colname, data)
   trt <- dplyr::pull(data, {{ treatment }})
   outcome <- dplyr::pull(data, {{ y }})
   check_na(trt, "treatment")
   check_na(outcome, "outcome (y)")
   if (!is.null(substitute(group))) {
+    grp_colname <- deparse(substitute(group))
+    check_col_exist(grp_colname, data)
     grp <- dplyr::pull(data, {{ group }})
     check_na(grp, "group variable")
   }
