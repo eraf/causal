@@ -1,4 +1,5 @@
 test_that("standardized risk ratio", {
+  total = nrow(wcgs)
   dt11 = wcgs %>%
     group_by(dibpat) %>%
     count(smoke, chd69) %>%
