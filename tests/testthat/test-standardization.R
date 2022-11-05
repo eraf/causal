@@ -1,3 +1,5 @@
+library(dplyr)
+
 test_that("standardized risk ratio", {
   total = nrow(wcgs)
   dt11 = wcgs %>%
