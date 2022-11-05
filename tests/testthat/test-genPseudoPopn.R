@@ -88,3 +88,60 @@ test_that("checking for whether reference level is given", {
   )
 })
 
+
+test_that("Checking for whether binary treatment and outcome is given", {
+
+  expect_error(
+    wcgs %>%
+      gen_pseudo_popn(agec, smoke, "No", "No"),
+    "treatment variable *."
+  )
+
+  expect_error(
+    wcgs %>%
+      gen_pseudo_popn(smoke, agec, "No", "No"),
+    "outcome .*"
+  )
+})
+
+test_that("checking for NA values", {
+  expect_error(
+    wcgs %>%
+      gen_pseudo_popn(chol, chd69, "No", "No"),
+    "There are missing values in treatment variable .*"
+  )
+
+  expect_error(
+    wcgs %>%
+      gen_pseudo_popn(smoke, chol, "No", "No"),
+    "There are missing values in outcome .*"
+  )
+
+  expect_error(
+    wcgs %>%
+      gen_pseudo_popn(smoke, chd69, "No", "No", arcus),
+    "There are missing values in group .*"
+  )
+})
+
+
+test_that("checking for non existent column", {
+  expect_error(
+    wcgs %>%
+      gen_pseudo_popn(smoker, chd69, "No", "No"),
+    "Column `\\w+` doesn't exist in the data"
+  )
+
+  expect_error(
+    wcgs %>%
+      gen_pseudo_popn(smoke, chd, "No", "No"),
+    "Column `\\w+` doesn't exist in the data"
+  )
+
+  expect_error(
+    wcgs %>%
+      gen_pseudo_popn(smoke, chd69, "No", "No", age_cat),
+    "Column `\\w+` doesn't exist in the data"
+  )
+})
+
