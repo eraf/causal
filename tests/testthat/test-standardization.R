@@ -7,7 +7,7 @@ test_that("standardized risk ratio", {
     count(smoke, chd69) %>%
     mutate(pL = sum(n) / total) %>%
     group_by(dibpat, smoke) %>%
-    summarise(pr = unique(calc_risk(n) * pL)) %>%
+    summarise(pr = unique(calc_risk(n) * pL), .groups = "drop") %>%
     group_by(smoke) %>%
     summarise(sums = sum(pr)) %>%
     summarise(st_rr = sums[2] / sums[1])
