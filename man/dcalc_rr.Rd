@@ -14,17 +14,17 @@ dcalc_rr(
 )
 }
 \arguments{
-\item{data}{A data frame containing treatment and outcome variable (y).}
+\item{data}{A data frame containing treatment and outcome (y) column.}
 
-\item{treatment}{A vector with two unique level or value.}
+\item{treatment}{treatment column with two unique level or value.}
 
-\item{y}{A vector with two unique level or value.}
+\item{y}{outcome column with two unique level or value.}
 
-\item{treatment_ref_lvl}{Reference Level of treatment variable.}
+\item{treatment_ref_lvl}{Reference Level of treatment column.}
 
-\item{y_ref_lvl}{Reference level of y variable.}
+\item{y_ref_lvl}{Reference level of outcome (y) column.}
 
-\item{group}{group by variable.}
+\item{group}{group column.}
 }
 \value{
 A tibble containing the risk ratio.
